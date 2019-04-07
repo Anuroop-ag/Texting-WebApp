@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
     new Vue({
         el: '#app',
         data: {
-            name: "Vinesh",
+            name: "Anuroop",
             friends: [
                 {
                     id: 0,
-                    name: "Anuroop",
+                    name: "Vinesh",
                     messages: [
 
-                        { id: 0, type: "text", data: "Hi Vinesh" },
+                        { id: 0, type: "text", data: "Hi Anuroop" },
                         { id: 0, type: "text", data: "Did You complete the homework" },
                         { id: -1, type: "text", data: "Yes Bro, The Lab assignmnet right?" },
                         { id: 0, type: "text", data: "Yeah, that one!" }
@@ -91,8 +91,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     return "right"
             },
             sendMessage() {
-                this.friends[this.current].messages.push({ id: -1, type: "text", data: this.message })
-                this.message = ""
+                if(this.message!=""){
+                    this.friends[this.current].messages.push({ id: -1, type: "text", data: this.message })
+                    this.message = ""
+                }
             },
             triggerContact() {
                 this.active = true;
