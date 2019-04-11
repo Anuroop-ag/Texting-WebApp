@@ -73,6 +73,12 @@ body {
       top: 9px;
   }
 
+  .record-button{
+      position: relative;
+      left: 50px;
+      top: 9px;
+  }
+
   .side-button{
     padding-left: 20px;
       height: 50px;

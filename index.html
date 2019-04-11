@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="vue.js"></script>
     <script src="https://unpkg.com/vue-material@beta"></script>
+    <script src="recorder.js"></script>
+
     <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
@@ -38,7 +40,7 @@
         </div>
         <div id="msg-area">
 
-            <msg-text v-for="msg in friends[current].messages" v-bind:direction="getAlignment(msg.id)" v-bind:id="msg.id"
+            <msg-text v-for="msg in friends[current].messages" v-bind:type="msg.type" v-bind:direction="getAlignment(msg.id)" v-bind:id="msg.id"
                 v-bind:name="nameFromId(msg.id)" v-bind:text="msg.data"></msg-text>
 
         </div>
@@ -50,6 +52,10 @@
 
             <md-button @click="sendMessage()" class="md-icon-button send-button">
                 <md-icon class=" fa fa-paper-plane"></md-icon>
+            </md-button>
+
+            <md-button @click="recordAudio()" class="md-icon-button record-button">
+                <md-icon class="fa" v-bind:class="{ 'fa-microphone': !recording, 'fa-microphone-slash': recording}"></md-icon>
             </md-button>
         </div>
 
