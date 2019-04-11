@@ -62,21 +62,29 @@ body {
   }
 
   .md-icon-button{
-      color: white;
+      
+  }
+
+  #add-friend{
+    color: white;
       position: absolute;
       right: 10px;
   }
 
-  .send-button{
+  #send-button{
       position: relative;
       left: 27px;
       top: 9px;
+      
+      
   }
 
-  .record-button{
+  #record-button{
       position: relative;
       left: 50px;
       top: 9px;
+      
+      
   }
 
   .side-button{

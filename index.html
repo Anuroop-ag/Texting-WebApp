@@ -26,7 +26,7 @@
             <span>
                 {{name}}
             </span>
-            <md-button @click="triggerContact()" class="md-icon-button">
+            <md-button @click="triggerContact()" class="md-icon-button" id="add-friend">
                 <md-icon style="color: white" class=" fa fa-user-plus"></md-icon>
             </md-button>
         </div>
@@ -50,11 +50,11 @@
                 <md-input v-model="message"></md-input>
             </md-field>
 
-            <md-button @click="sendMessage()" class="md-icon-button send-button">
+            <md-button @click="sendMessage()" id="send-button" class="md-icon-button">
                 <md-icon class=" fa fa-paper-plane"></md-icon>
             </md-button>
 
-            <md-button @click="recordAudio()" class="md-icon-button record-button">
+            <md-button @click="recordAudio()" id="record-button" class="md-icon-button">
                 <md-icon class="fa" v-bind:class="{ 'fa-microphone': !recording, 'fa-microphone-slash': recording}"></md-icon>
             </md-button>
         </div>

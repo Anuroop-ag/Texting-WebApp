@@ -26,8 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <div v-else-if="type == 'audio'">
             <div id="msg-box" v-bind:style="{ textAlign: direction}">
+                <h3> Audio </h3>
                 <md-button @click="playAudio(text)" class="md-icon-button">
-                    <md-icon class="fa fa-microphone"></md-icon>
+                    <md-icon class="fa fa-play-circle"></md-icon>
                 </md-button>
             </div>
         </div>
@@ -37,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
             playAudio(text) {
                 console.log(text);
                 if(text){
-                    var audio = new Audio(text);
+                    var audio = new Audio();
+                    audio.src = text;
                     audio.play();
                 }
                 
@@ -244,8 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // var re='@\s*([\S]*)'
                     // this.message=re
                     // str=str.replace(re, '<b>'+find+'</b>');
-                    this.message=str
-                    this.friends[this.current].messages.push({ id: -1, type: "text", data: this.message })
+                    this.friends[this.current].messages.push({ id: -1, type: "text", data: str })
                     this.message = ""
                 }
             },
