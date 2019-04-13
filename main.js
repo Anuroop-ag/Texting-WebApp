@@ -1,6 +1,21 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     Vue.use(VueMaterial.default)
 
+
+// function checkKeycode(event) {
+//     // handling Internet Explorer stupidity with window.event
+//     // @see http://stackoverflow.com/a/3985882/517705
+//     var keyDownEvent = event || window.event,
+//     keycode = (keyDownEvent.which) ? keyDownEvent.which : keyDownEvent.keyCode;
+
+//     console.log(keycode);
+//     // print_arrow_key(keycode);
+
+//     return false;
+// }
+
+// document.onkeydown = checkKeycode;
     URL = window.URL || window.webkitURL;
     var gumStream;
     //stream from getUserMedia() 
@@ -11,7 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // shim for AudioContext when it's not avb. 
     var AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContext;
-
+    
+    // document.onkeydown=checkKey;
+    
     Vue.component('msg-text', {
         props: ["name", "text", "id", "direction", "type"],
 
@@ -44,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 
             }
+
+            
         }
     })
 
@@ -118,6 +137,16 @@ document.addEventListener('DOMContentLoaded', function () {
             selectFriend(id) {
                 this.current = id;
             },
+            uplist(){
+                if(this.current!=0){
+                    this.current=(this.current-1)%3;
+                }else{
+                    this.current=3;
+                }
+            },
+            downlist(){
+                this.current=(this.current+1)%4;
+            },
             nameFromId(id) {
                 if (id == -1) {
                     return this.name
@@ -161,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         /* assign to gumStream for later use */
                         gumStream = stream;
                         /* use the stream */
+                       
                         input = audioContext.createMediaStreamSource(stream);
                         /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
                         rec = new Recorder(input, {
@@ -219,39 +249,36 @@ document.addEventListener('DOMContentLoaded', function () {
             
             sendMessage() {
                 if(this.message!=""){
-                    // boldString(this.message,'@')
                     var str=this.message
-                    var find='@'
-                    var flag=0
                     var i=0
-                    for(i=0;i<str.length;i++){
-                        if (str[i]=='@'){
-                            // alert(str[i])
-                            str=str.replace(str[i],'<b>'+'@'+'</b>')
-                            i=i+7
-                            // alert(str[i])
-                            flag=1
-                        }else if(flag==1 && str[i]!=" "){
-
-                            str=str.replace(str[i],'<b>'+str[i]+'</b>')
-                            i=i+7
-
-                        }else if(str[i]==" "){
-                            // alert(str[i+1])
-                            flag=0
-                        }
+                    var index=str.indexOf(this.name)
+                    var len=(this.name).length
+                    if(index!=-1){
+                        var b1='<b>';
+                        var b2='</b>';
+                        str=[str.slice(0,index-1), b1, str.slice(index-1,index+len),b2,str.slice(index+len)].join('');
+                        
                     }
-                    // var find='@'
-                    // var re = new RegExp('@\S*','g');
-                    // var re='@\s*([\S]*)'
-                    // this.message=re
-                    // str=str.replace(re, '<b>'+find+'</b>');
+
+                    for(i=0;i<4;i++){
+                        var index=str.indexOf(this.friends[i].name)
+                        var len=(this.friends[i].name).length
+                        if(index!=-1){
+                            var b1='<b>';
+                            var b2='</b>';
+                            str=[str.slice(0,index-1), b1, str.slice(index-1,index+len),b2,str.slice(index+len)].join('');
+                        }
+
+                    }
+                   
+
                     this.friends[this.current].messages.push({ id: -1, type: "text", data: str })
-                    this.message = ""
+                    this.message =" ";
                 }
             },
             triggerContact() {
                 this.active = true;
+
             },
             addContact() {
                 if (this.active) {

@@ -19,9 +19,9 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
-<body>
+<body >
 
-    <div id="app">
+    <div id="app" v-on:keydown.up="uplist()" v-on:keydown.down="downlist()">
         <div id="top-bar">
             <span>
                 {{name}}
@@ -30,9 +30,9 @@
                 <md-icon style="color: white" class=" fa fa-user-plus"></md-icon>
             </md-button>
         </div>
-        <div id="side-bar">
+        <div id="side-bar"  >
             <div v-for="friend in friends">
-                <div @click="selectFriend(friend.id)" class="side-button" v-bind:style="{background: getColor(friend.id)}">
+                <div  @click="selectFriend(friend.id)" class="side-button" v-bind:style="{background: getColor(friend.id)}">
                     {{ friend.name }}
                 </div>
 
